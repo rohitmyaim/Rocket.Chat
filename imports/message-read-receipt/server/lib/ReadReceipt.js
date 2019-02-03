@@ -79,7 +79,8 @@ export const ReadReceipt = {
 	getReceipts(message) {
 		return ModelReadReceipts.findByMessageId(message._id).map((receipt) => ({
 			...receipt,
-			user: RocketChat.models.Users.findOneById(receipt.userId, { fields: { username: 1, name: 1 } }),
+			user: RocketChat.models.Users.findOneById(receipt.userId, { fields: { username: 1, name: 1 } }) ||
+				RocketChat.models.LivechatVisitors.findOneById(receipt.userId, { fields: { username: 1, name: 1 } }),
 		}));
 	},
 };
