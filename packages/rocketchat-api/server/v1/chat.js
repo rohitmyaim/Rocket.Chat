@@ -375,3 +375,21 @@ RocketChat.API.v1.addRoute('chat.getDeletedMessages', { authRequired: true }, {
 		});
 	},
 });
+
+RocketChat.API.v1.addRoute('chat.saveLivechatVisitorReadReceipt', { authRequired: true }, {
+	post() {
+		const { messageId, visitorToken } = this.bodyParams;
+
+		if (!messageId) {
+			return RocketChat.API.v1.failure('The required "messageId" param is missing.');
+		}
+
+		if (!visitorToken) {
+			return RocketChat.API.v1.failure('The required "visitorToken" param is missing.');
+		}
+
+		Meteor.runAsUser(this.userId, () => Meteor.call('saveLivechatVisitorReadReceipt', { messageId, visitorToken }));
+
+		return RocketChat.API.v1.success();
+	},
+});
