@@ -207,4 +207,11 @@ class LivechatVisitors extends RocketChat.models._Base {
 	}
 }
 
+RocketChat.models.LivechatVisitors = new LivechatVisitors();
+
+RocketChat.models.LivechatVisitors.findOneById = function(userId, options) {
+	const query = { _id: userId };
+	return this.findOne(query, options);
+};
+
 export default new LivechatVisitors();
