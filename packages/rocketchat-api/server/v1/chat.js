@@ -378,7 +378,7 @@ RocketChat.API.v1.addRoute('chat.getDeletedMessages', { authRequired: true }, {
 
 RocketChat.API.v1.addRoute('chat.saveLivechatVisitorReadReceipt', { authRequired: true }, {
 	post() {
-		const { messageId, visitorToken } = this.bodyParams;
+		const { messageId, visitorToken, receiptStatus } = this.bodyParams;
 
 		if (!messageId) {
 			return RocketChat.API.v1.failure('The required "messageId" param is missing.');
@@ -388,7 +388,7 @@ RocketChat.API.v1.addRoute('chat.saveLivechatVisitorReadReceipt', { authRequired
 			return RocketChat.API.v1.failure('The required "visitorToken" param is missing.');
 		}
 
-		Meteor.runAsUser(this.userId, () => Meteor.call('saveLivechatVisitorReadReceipt', { messageId, visitorToken }));
+		Meteor.runAsUser(this.userId, () => Meteor.call('saveLivechatVisitorReadReceipt', { messageId, visitorToken, receiptStatus }));
 
 		return RocketChat.API.v1.success();
 	},

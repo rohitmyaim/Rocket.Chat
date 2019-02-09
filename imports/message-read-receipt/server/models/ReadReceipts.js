@@ -6,6 +6,7 @@ class ModelReadReceipts extends RocketChat.models._Base {
 			roomId: 1,
 			userId: 1,
 			messageId: 1,
+			receiptStatus : 1,
 		}, {
 			unique: 1,
 		});
