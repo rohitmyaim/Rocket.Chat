@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { ReadReceipt } from '../../lib/ReadReceipt';
 
 Meteor.methods({
-	saveLivechatVisitorReadReceipt({ messageId, visitorToken }) {
+	saveLivechatVisitorReadReceipt({ messageId, visitorToken, receiptStatus }) {
 
 		if (!messageId) {
 			throw new Meteor.Error('error-invalid-message', 'The required \'messageId\' param is missing.', { method: 'saveLivechatVisitorReadReceipt' });
@@ -24,7 +24,7 @@ Meteor.methods({
 			throw new Meteor.Error('error-invalid-visitor', 'Invalid visitor', { method: 'saveLivechatVisitorReadReceipt' });
 		}
 
-		ReadReceipt.markMessageAsReadBySender(message, message.rid, visitor._id);
+		ReadReceipt.markMessageAsReadBySender(message, message.rid, visitor._id, receiptStatus);
 
 		return;
 	},

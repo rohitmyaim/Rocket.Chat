@@ -41,6 +41,11 @@
 
 .read-receipts__time {
 	font-size: 80%;
+	margin-right: 10px;
+}
+
+.read-receipts__status {
+	font-size: 80%;
 }
 
 .read-receipts__user > .avatar {

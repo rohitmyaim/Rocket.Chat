@@ -39,7 +39,7 @@ export const ReadReceipt = {
 		updateMessages(roomId);
 	},
 
-	markMessageAsReadBySender(message, roomId, userId) {
+	markMessageAsReadBySender(message, roomId, userId, receiptStatus) {
 		if (!RocketChat.settings.get('Message_Read_Receipt_Enabled')) {
 			return;
 		}
@@ -50,18 +50,20 @@ export const ReadReceipt = {
 			RocketChat.models.Messages.setAsReadById(message._id, firstSubscription.ls);
 		}
 
-		this.storeReadReceipts([{ _id: message._id }], roomId, userId);
+		this.storeReadReceipts([{ _id: message._id }], roomId, userId, receiptStatus);
 	},
 
-	storeReadReceipts(messages, roomId, userId) {
+	storeReadReceipts(messages, roomId, userId, receiptStatus) {
 		if (RocketChat.settings.get('Message_Read_Receipt_Store_Users')) {
 			const ts = new Date();
+			receiptStatus = receiptStatus ? receiptStatus : "viewed";
 			const receipts = messages.map((message) => ({
 				_id: Random.id(),
 				roomId,
 				userId,
 				messageId: message._id,
 				ts,
+				receiptStatus
 			}));
 
 			if (receipts.length === 0) {
