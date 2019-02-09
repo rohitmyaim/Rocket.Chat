@@ -56,14 +56,14 @@ export const ReadReceipt = {
 	storeReadReceipts(messages, roomId, userId, receiptStatus) {
 		if (RocketChat.settings.get('Message_Read_Receipt_Store_Users')) {
 			const ts = new Date();
-			receiptStatus = receiptStatus ? receiptStatus : "viewed";
+			receiptStatus = receiptStatus ? receiptStatus : 'viewed';
 			const receipts = messages.map((message) => ({
 				_id: Random.id(),
 				roomId,
 				userId,
 				messageId: message._id,
 				ts,
-				receiptStatus
+				receiptStatus,
 			}));
 
 			if (receipts.length === 0) {

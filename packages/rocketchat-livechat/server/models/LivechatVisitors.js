@@ -208,7 +208,7 @@ class LivechatVisitors extends RocketChat.models._Base {
 }
 
 
-let visitorObj = new LivechatVisitors();
+const visitorObj = new LivechatVisitors();
 RocketChat.models.LivechatVisitors = visitorObj;
 
 RocketChat.models.LivechatVisitors.findOneById = function(userId, options) {
